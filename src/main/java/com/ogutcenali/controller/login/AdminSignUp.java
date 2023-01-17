@@ -56,7 +56,7 @@ public class AdminSignUp extends JFrame {
 
 		tf_firstname = new JTextField();
 		tf_firstname.setColumns(10);
-		tf_firstname.setBounds(123, 109, 188, 20);
+		tf_firstname.setBounds(123, 109, 220, 20);
 		contentPane.add(tf_firstname);
 
 		JLabel lblNewLabel_2_1 = new JLabel("Lastname");
@@ -67,11 +67,11 @@ public class AdminSignUp extends JFrame {
 
 		tf_lastname = new JTextField();
 		tf_lastname.setColumns(10);
-		tf_lastname.setBounds(123, 150, 188, 20);
+		tf_lastname.setBounds(123, 150, 220, 20);
 		contentPane.add(tf_lastname);
 
 		passwordField = new JPasswordField();
-		passwordField.setBounds(123, 191, 188, 20);
+		passwordField.setBounds(123, 191, 220, 20);
 		contentPane.add(passwordField);
 
 		JLabel lblNewLabel_3 = new JLabel("Password");
@@ -94,8 +94,8 @@ public class AdminSignUp extends JFrame {
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBackground(new Color(255, 255, 255));
 		comboBox.setModel(
-				new DefaultComboBoxModel(new String[] { "@gmail.com", "@hotmail.com", "@indeed.com", "@shoop.com" }));
-		comboBox.setBounds(218, 232, 93, 22);
+				new DefaultComboBoxModel(new String[] {"@mycompany.com"}));
+		comboBox.setBounds(218, 232, 125, 22);
 		contentPane.add(comboBox);
 
 		JButton btnNewButton = new JButton("Register");
@@ -108,7 +108,7 @@ public class AdminSignUp extends JFrame {
 				deleteFields();
 			}
 		});
-		btnNewButton.setBounds(127, 278, 184, 23);
+		btnNewButton.setBounds(127, 278, 216, 23);
 		contentPane.add(btnNewButton);
 
 		JButton btnNewButton_1 = new JButton("Back Login");

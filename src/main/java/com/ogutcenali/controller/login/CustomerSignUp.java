@@ -152,15 +152,20 @@ public class CustomerSignUp extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if (passwordField.getText().length() > 4) {
+				boolean createNewCustomer = customerService.newCustomerCheck(tf_identify.getText(),
+						tf_Firstname.getText(), tf_Lastname.getText(), passwordField.getText(), tf_email.getText(),
+						String.valueOf(cb_mail.getSelectedItem()));
 
-					customerService.createCustomer(tf_identify.getText(), tf_Firstname.getText(), tf_Lastname.getText(),
-							passwordField.getText(), tf_email.getText(), String.valueOf(cb_mail.getSelectedItem()));
-					deleteFields();
-					JOptionPane.showMessageDialog(null, "You're welcome");
+				if (createNewCustomer == true) {
+					JOptionPane.showMessageDialog(null, "Congrats you're welcome");
+					dispose();
+					CustomerLoginScreen customerLoginDialog = new CustomerLoginScreen();
+					customerLoginDialog.setVisible(true);
 				} else {
-					JOptionPane.showMessageDialog(null, "Your password must be more than 4");
+
+					tf_identify.setEditable(true);
 				}
+
 			}
 		});
 		btnNewButton.setBounds(127, 363, 184, 23);
@@ -183,7 +188,7 @@ public class CustomerSignUp extends JFrame {
 		contentPane.add(lbl_error);
 	}
 
-	public void deleteFields() {
+	public void removeFields() {
 		tf_email.setText("");
 		tf_Firstname.setText("");
 		tf_Lastname.setText("");

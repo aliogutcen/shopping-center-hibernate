@@ -80,6 +80,7 @@ public class ProductApp extends JFrame {
 	private JButton btnNewButton_6;
 	private JLabel lblNewLabel_5;
 	private JTextField tf_price;
+	private JLabel lbl_foto6;
 
 	public ImageIcon seticon(String m, byte[] image) {
 
@@ -100,7 +101,7 @@ public class ProductApp extends JFrame {
 		setResizable(false);
 		setTitle("Product");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1160, 541);
+		setBounds(100, 100, 1149, 541);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -140,6 +141,10 @@ public class ProductApp extends JFrame {
 		lbl_foto2 = new JLabel("");
 		lbl_foto2.setBounds(10, 23, 238, 220);
 		panel.add(lbl_foto2);
+
+		lbl_foto6 = new JLabel("");
+		lbl_foto6.setBounds(10, 23, 238, 219);
+		panel.add(lbl_foto6);
 
 		panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(null, "Add Product", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -196,7 +201,7 @@ public class ProductApp extends JFrame {
 
 				productService.updateThisProduct(Integer.parseInt(tf_price.getText()), tf_productname.getText(),
 						Long.parseLong(tf_id.getText()));
-				
+
 				JOptionPane.showMessageDialog(null, "UPDATE THIS PRODUCT");
 
 			}
@@ -369,23 +374,6 @@ public class ProductApp extends JFrame {
 
 	}
 
-	public void categoryInformation(long value) {
-		Product product = productService.FindInfoWithId(value);
-		tf_productname.setText(product.getName());
-		tf_stock.setText(String.valueOf(product.getStock()));
-		comboBox.setSelectedItem(product.getCategory().getName());
-
-		byte[] imageData = product.getImage();
-		ImageIcon format = new ImageIcon(imageData);
-		Image mm = format.getImage();
-		Image img2 = mm.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
-		ImageIcon image = new ImageIcon(img2);
-		lbl_foto2.setIcon(image);
-		tf_price.setText(String.valueOf(product.getPrice()));
-		tf_id.setText(String.valueOf(product.getId()));
-
-	}
-
 	protected void getAllTable(List<Product> productList2) {
 
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
@@ -423,6 +411,7 @@ public class ProductApp extends JFrame {
 		tf_stock.setText("");
 		lbl_foto2.setIcon(null);
 		tf_id.setText("");
+		tf_price.setText("");
 	}
 
 	public void getAllTable() {
@@ -440,13 +429,32 @@ public class ProductApp extends JFrame {
 				lbl_foto2.setHorizontalAlignment(JLabel.CENTER);
 				byte[] bytes = (byte[]) value;
 				ImageIcon imageIcon = new ImageIcon(
-						new ImageIcon(bytes).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+						new ImageIcon(bytes).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
 
 				lbl_foto2.setIcon(imageIcon);
 
 			}
 			return lbl_foto2;
 		}
+
+	}
+
+	public void categoryInformation(long value) {
+		Product product = productService.FindInfoWithId(value);
+		tf_productname.setText(product.getName());
+		tf_stock.setText(String.valueOf(product.getStock()));
+		comboBox.setSelectedItem(product.getCategory().getName());
+
+		byte[] imageData = product.getImage();
+
+		ImageIcon format = new ImageIcon(imageData);
+		Image mm = format.getImage();
+		Image img2 = mm.getScaledInstance(200, 200, Image.SCALE_DEFAULT);
+		ImageIcon image = new ImageIcon(img2);
+		lbl_foto6.setIcon(image);
+
+		tf_price.setText(String.valueOf(product.getPrice()));
+		tf_id.setText(String.valueOf(product.getId()));
 
 	}
 }

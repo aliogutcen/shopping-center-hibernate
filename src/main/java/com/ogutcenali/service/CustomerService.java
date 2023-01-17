@@ -108,18 +108,47 @@ public class CustomerService {
 		return customer;
 	}
 
-	public void createCustomer(String identify, String fname, String lname, String pass, String mail, String valueOf) {
-		String email = mail+valueOf;
-		Customers customers = new Customers(fname, lname, email, pass, identify);
-		customerDao.save(customers);
-	}
-
 	public Customers updateProducts(long id, Product key) {
 
 		Customers customer = customerDao.findById(id);
 		customer.getProduct().add(key);
 		customerDao.update(customer);
 		return customer;
+	}
+
+	public boolean newCustomerCheck(String identify, String firstname, String lastname, String password,
+			String emailtext, String emailchoose) {
+
+		if (identify.isEmpty() || firstname.isEmpty() || lastname.isEmpty() || password.isEmpty()
+				|| emailtext.isEmpty()) {
+
+			JOptionPane.showMessageDialog(null, "Please Fill In The Blank Fields");
+			return false;
+		} else if (password.length() < 5) {
+			JOptionPane.showMessageDialog(null, "Your password must be more than 5 characters");
+			return false;
+		}	else if(identify.length()<11) {
+				JOptionPane.showMessageDialog(null, "Your identify must be more than 11 characters");
+				return false;
+			}
+		 else {
+			String emailType = emailtext + emailchoose;
+			if (customerDao.listAll().stream().filter(c -> c.getIdentity().equals(identify)).findAny()
+					.orElse(null) == null
+					&& customerDao.listAll().stream().filter(c -> c.getEmail().equals(emailType)).findAny()
+							.orElse(null) == null) {
+
+				Customers customer = new Customers(firstname, lastname, emailType, password, identify);
+				customerDao.save(customer);
+				return true;
+
+			} else {
+				JOptionPane.showMessageDialog(null,
+						"Please enter an identity number and email that you have not registered before");
+				return false;
+			}
+		}
+
 	}
 
 }

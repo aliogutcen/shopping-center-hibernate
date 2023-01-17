@@ -93,7 +93,7 @@ public class CustomerApp extends JFrame {
 		lbl_hosgeldin.setBounds(981, 21, 160, 14);
 		contentPane.add(lbl_hosgeldin);
 		lbl_hosgeldin.setText(getName());
-	//	getInfo(id);
+		 getInfo(id);
 		JButton btnNewButton = new JButton("Settings");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -141,20 +141,13 @@ public class CustomerApp extends JFrame {
 
 		scrollPane.setViewportView(table);
 		table.setModel(
-				new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"id", "photo", "name", "price", "stock"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
+				new DefaultTableModel(new Object[][] {}, new String[] { "id", "photo", "name", "price", "stock" }) {
+					boolean[] columnEditables = new boolean[] { false, false, false, false, false };
+
+					public boolean isCellEditable(int row, int column) {
+						return columnEditables[column];
+					}
+				});
 
 		lbl_name = new JLabel("");
 		lbl_name.setBounds(878, 383, 116, 14);
@@ -282,8 +275,8 @@ public class CustomerApp extends JFrame {
 
 			}
 		});
-		lblNewLabel_1.setIcon(new ImageIcon(CustomerApp.class.getResource("/com/ogutcenali/assets/sepet.png")));
-		lblNewLabel_1.setBounds(1285, 66, 46, 28);
+		lblNewLabel_1.setIcon(new ImageIcon(CustomerApp.class.getResource("/com/ogutcenali/assets/basket.png")));
+		lblNewLabel_1.setBounds(1282, 50, 50, 44);
 		contentPane.add(lblNewLabel_1);
 
 		lbl_basketscount = new JLabel("");
@@ -336,12 +329,15 @@ public class CustomerApp extends JFrame {
 		Object[] column = new Object[5];
 		model.setRowCount(0);
 		for (int i = 0; i < productList.size(); i++) {
-			column[0] = productList.get(i).getId();
-			column[1] = productList.get(i).getImage();
-			column[2] = productList.get(i).getName();
-			column[3] = productList.get(i).getPrice();
-			column[4] = productList.get(i).getStock();
-			model.addRow(column);
+			if (productList.get(i).getStock() > 0) {
+
+				column[0] = productList.get(i).getId();
+				column[1] = productList.get(i).getImage();
+				column[2] = productList.get(i).getName();
+				column[3] = productList.get(i).getPrice();
+				column[4] = productList.get(i).getStock();
+				model.addRow(column);
+			}
 		}
 		table.getTableHeader().setReorderingAllowed(false);
 		table.getColumnModel().getColumn(1).setCellRenderer(new ImageRenderer());
@@ -359,7 +355,7 @@ public class CustomerApp extends JFrame {
 				lbl_foto2.setHorizontalAlignment(JLabel.CENTER);
 				byte[] bytes = (byte[]) value;
 				ImageIcon imageIcon = new ImageIcon(
-						new ImageIcon(bytes).getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH));
+						new ImageIcon(bytes).getImage().getScaledInstance(100, 100, Image.SCALE_AREA_AVERAGING));
 
 				lbl_foto2.setIcon(imageIcon);
 
