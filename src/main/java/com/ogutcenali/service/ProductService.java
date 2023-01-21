@@ -85,10 +85,7 @@ public class ProductService {
 		return productDao.listAll().stream().filter((p) -> p.getStock() < 10).toList();
 	}
 
-	public HashMap<Product, Integer> getProductsCountForCustomers(Customers customer) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	public void updateThisProduct(int parseInt, String text, long parseLong) {
 		Product product = productDao.findById(parseLong);
