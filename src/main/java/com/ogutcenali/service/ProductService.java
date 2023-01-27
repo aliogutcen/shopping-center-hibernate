@@ -95,7 +95,7 @@ public class ProductService {
 
 	}
 
-	public void StockUpdateForBasket(long id, Integer value) {
+	public void stockUpdateForBasket(long id, Integer value) {
 		Product product = productDao.findById(id);
 		product.setStock(product.getStock() - value);
 		productDao.update(product);
